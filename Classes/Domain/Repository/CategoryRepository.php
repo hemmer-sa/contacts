@@ -13,8 +13,9 @@ use Extcode\Contacts\Domain\Model\Dto\Demand;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
+class CategoryRepository extends Repository
 {
     public function findAllAsRecursiveTreeArray(Category $selectedCategory = null): array
     {

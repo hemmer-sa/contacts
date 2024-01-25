@@ -2,7 +2,7 @@
 
 use Extcode\Contacts\Hooks\GoogleMapHook;
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') === true || die;
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

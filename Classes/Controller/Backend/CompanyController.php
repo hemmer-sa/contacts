@@ -12,6 +12,8 @@ namespace Extcode\Contacts\Controller\Backend;
 use Extcode\Contacts\Domain\Model\Company;
 use Extcode\Contacts\Domain\Model\Dto\Demand;
 use Extcode\Contacts\Domain\Repository\CompanyRepository;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -23,7 +25,7 @@ class CompanyController extends ActionController
     /**
      * @var CompanyRepository
      */
-    protected $companyRepository;
+    private ?CompanyRepository $companyRepository = null;
 
     /**
      * @var int
@@ -50,9 +52,12 @@ class CompanyController extends ActionController
         $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
     }
 
-    public function listAction(int $currentPage = 1): void
+    public function listAction(ServerRequest $request): ResponseInterface
     {
-        $demand = $this->createDemandObject();
+        $queryParams = $request->getQueryParams();
+        $currentPage = (int) $queryParams['id'] ?? 1;
+
+        $demand = $this->createDemandObject($queryParams);
 
         $companies = $this->companyRepository->findDemanded($demand);
 
@@ -72,6 +77,8 @@ class CompanyController extends ActionController
                 'pages' => range(1, $pagination->getLastPageNumber()),
             ]
         );
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -84,12 +91,12 @@ class CompanyController extends ActionController
         $this->view->assign('company', $company);
     }
 
-    protected function createDemandObject(): Demand
+    protected function createDemandObject(array $params): Demand
     {
         $demand = GeneralUtility::makeInstance(Demand::class);
 
-        if ($this->request->hasArgument('filter')) {
-            $filter = $this->request->getArgument('filter');
+        if (isset($params['filter'])) {
+            $filter = $params['filter'];
             if (!empty($filter['searchString'])) {
                 $demand->setSearchString($filter['searchString']);
             }

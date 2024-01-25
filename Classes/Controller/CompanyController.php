@@ -11,6 +11,7 @@ namespace Extcode\Contacts\Controller;
 
 use Extcode\Contacts\Domain\Model\Company;
 use Extcode\Contacts\Domain\Repository\CompanyRepository;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -61,7 +62,7 @@ class CompanyController extends ActionController
         }
     }
 
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
         $demand = $this->createDemandObjectFromSettings($this->settings);
         $demand->setActionAndClass(__METHOD__, __CLASS__);
@@ -71,6 +72,8 @@ class CompanyController extends ActionController
         $this->view->assign('demand', $demand);
         $this->view->assign('companies', $companies);
         $this->view->assign('categories', $this->getSelectedCategories($demand));
+
+        return $this->htmlResponse();
     }
 
     public function showAction(Company $company = null): void

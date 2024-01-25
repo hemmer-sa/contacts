@@ -4,9 +4,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') === true || die;
 
-call_user_func(function () {
+(static function () {
     $_LLL_db = 'LLL:' . 'EXT:contacts/Resources/Private/Language/locallang_db.xlf';
 
     $pluginNames = [
@@ -38,4 +38,5 @@ call_user_func(function () {
     $GLOBALS['TCA']['tt_content']['columns']['tx_contacts_domain_model_address']['config']['type'] = 'passthrough';
     $GLOBALS['TCA']['tt_content']['columns']['tx_contacts_domain_model_company']['config']['type'] = 'passthrough';
     $GLOBALS['TCA']['tt_content']['columns']['tx_contacts_domain_model_contact']['config']['type'] = 'passthrough';
-});
+})();
+
