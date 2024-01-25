@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3') === true || die;
+defined('TYPO3') || die;
 
 $_LLL_be = 'LLL:EXT:contacts/Resources/Private/Language/locallang_be.xlf';
 

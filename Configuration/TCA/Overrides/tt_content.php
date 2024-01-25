@@ -4,7 +4,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-defined('TYPO3') === true || die;
+defined('TYPO3') || die;
 
 (static function () {
     $_LLL_db = 'LLL:' . 'EXT:contacts/Resources/Private/Language/locallang_db.xlf';

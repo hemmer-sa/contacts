@@ -1,5 +1,5 @@
 <?php
-defined('TYPO3') === true || die;
+defined('TYPO3') || die;
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
