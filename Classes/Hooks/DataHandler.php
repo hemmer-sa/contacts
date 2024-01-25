@@ -23,16 +23,11 @@ class DataHandler
      */
     public function clearCachePostProc(array $params)
     {
-        if (isset($params['table'])){
-            if (($params['table'] !== 'tx_contacts_domain_model_contact') &&
-                ($params['table'] !== 'tx_contacts_domain_model_company')
-            ) {
-                return;
-            }
-        } else {
+        if ((($params['table'] ?? null) !== 'tx_contacts_domain_model_contact') &&
+            (($params['table'] ?? null) !== 'tx_contacts_domain_model_company')
+        ) {
             return;
         }
-
 
         $cacheTagsToFlush = $this->getCacheTagsToFlush($params);
 

@@ -53,14 +53,14 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     {
         $demand = new Demand();
         $this->addCategoriesToDemandObjectFromSettings($demand);
-        if (isset($this->settings['orderBy'])) {
+        if ($this->settings['orderBy'] ?? null) {
             $demand->setOrderBy($this->settings['orderBy']);
         }
 
         $arguments = $this->request->getArguments();
 
-        if (isset($arguments['filter'])) {
-            if (isset($arguments['filter']['searchString'])) {
+        if ($arguments['filter'] ?? null) {
+            if ($arguments['filter']['searchString'] ?? null) {
                 $demand->setSearchString($arguments['filter']['searchString']);
             }
 
@@ -82,7 +82,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      */
     protected function addCategoriesToDemandObjectFromSettings(&$demand)
     {
-        if (isset($this->settings['categoriesList'])) {
+        if ($this->settings['categoriesList'] ?? null) {
             $selectedCategories = GeneralUtility::intExplode(
                 ',',
                 $this->settings['categoriesList'],
